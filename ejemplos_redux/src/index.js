@@ -3,13 +3,20 @@
 MI ESTADO:
   state = {
     trafficLights: [0, 0, 0],
-    pmt: [
-      {
-        id: 1,
-        name: 'Samuel',
-        age: 30,
+    pmt: {
+      byId: {
+        1: {
+          id: 1,
+          name: 'Samuel',
+          age: 30,
+        }
       },
-    ]
+      order: [1]
+    },
+    pmtToTrafficLights: {
+      5: 2,
+      3: 4,
+    },
   };
 
 MIS TIPOS DE ACCIONES:
@@ -18,6 +25,7 @@ MIS TIPOS DE ACCIONES:
   'ALL_TRAFFIC_LIGHTS_CHANGED'
   'PMT_AGENT_ADDED'
   'PMT_AGENT_CHANGED'
+  'TRAFFIC_LIGHT_PMT_AGENT_ASSIGNED'
 
 MIS ACCIONES:
   {
@@ -45,9 +53,23 @@ MIS ACCIONES:
       name: 'Florencio',
     },
   }
+  {
+    type: 'TRAFFIC_LIGHT_PMT_AGENT_ASSIGNED',
+    payload: {
+      pmt: 5,
+      trafficLight: 2
+    }
+  }
+  {
+    type: 'TRAFFIC_LIGHT_PMT_AGENT_UNASSIGNED',
+    payload: {
+      pmt: 5,
+    }
+  }
 
 */
 
+import omit from 'lodash/omit';
 import {
   createStore,
   combineReducers
@@ -76,24 +98,11 @@ const trafficLights = (state = [], action) => {
   }
 };
 
-const pmt = (state = [], action) => {
+
+const order = (state = [], action) => {
   switch (action.type) {
     case 'PMT_AGENT_ADDED': {
-      return [...state, action.payload];
-    }
-    case 'PMT_AGENT_CHANGED': {
-      return state.map(
-        pmtAgent => {
-          if (pmtAgent.id === action.payload.id) {
-            return {
-              ...pmtAgent,
-              ...action.payload,
-            };
-          }
-
-          return pmtAgent;
-        }
-      );
+      return [...state, action.payload.id];
     }
     case 'REVERSED': {
       return state.slice().reverse();
@@ -104,9 +113,55 @@ const pmt = (state = [], action) => {
   }
 };
 
+const byId = (state = {}, action) => {
+  switch (action.type) {
+    case 'PMT_AGENT_ADDED': {
+      return {
+        ...state,
+        [action.payload.id]: action.payload,
+      };
+    }
+    case 'PMT_AGENT_CHANGED': {
+      return {
+        ...state,
+        [action.payload.id]: {
+          ...state[action.payload.id],
+          ...action.payload,
+        },
+      };
+    }
+    default: {
+      return state;
+    }
+  }
+};
+
+const pmt = combineReducers({
+  byId,
+  order,
+});
+
+const pmtToTrafficLights = (state = {}, action) => {
+  switch (action.type) {
+    case 'TRAFFIC_LIGHT_PMT_AGENT_ASSIGNED': {
+      return {
+        ...state,
+        [action.payload.pmt]: action.payload.trafficLight,
+      };
+    }
+    case 'TRAFFIC_LIGHT_PMT_AGENT_UNASSIGNED': {
+      return omit(state, action.payload.pmt);
+    }
+    default: {
+      return state;
+    }
+  }
+};
+
 const reducer = combineReducers({
   trafficLights,
   pmt,
+  pmtToTrafficLights,
 });
 
 const store = createStore(reducer);
@@ -176,6 +231,36 @@ store.dispatch({
 
 store.dispatch({ type: 'REVERSED' });
 
+store.dispatch({
+  type: 'TRAFFIC_LIGHT_PMT_AGENT_ASSIGNED',
+  payload: {
+    pmt: 5,
+    trafficLight: 2,
+  },
+});
+
+store.dispatch({
+  type: 'TRAFFIC_LIGHT_PMT_AGENT_ASSIGNED',
+  payload: {
+    pmt: 6,
+    trafficLight: 1,
+  },
+});
+
+store.dispatch({
+  type: 'TRAFFIC_LIGHT_PMT_AGENT_ASSIGNED',
+  payload: {
+    pmt: 5,
+    trafficLight: 3,
+  },
+});
+
+store.dispatch({
+  type: 'TRAFFIC_LIGHT_PMT_AGENT_UNASSIGNED',
+  payload: {
+    pmt: 5,
+  },
+});
 
 // import React from 'react';
 // import ReactDOM from 'react-dom';

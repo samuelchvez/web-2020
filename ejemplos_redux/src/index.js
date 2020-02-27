@@ -1,23 +1,24 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
+import { Provider } from 'react-redux';
 
 import reducer from './reducers';
-import * as trafficLightActions from './actions/trafficLights';
-import * as pmtActions from './actions/pmt';
+import * as trafficLightsActions from './actions/trafficLights';
+import TrafficLight from './components/TrafficLight';
 
 
 const store = createStore(reducer);
 
+store.dispatch(trafficLightsActions.addTrafficLight());
 
-store.subscribe(() => console.log(store.getState()));
+const App = () => (
+  <Provider store={store}>
+    <TrafficLight index={0} />
+  </Provider>
+);
 
-
-store.dispatch(trafficLightActions.addTrafficLight());
-store.dispatch(trafficLightActions.addTrafficLight());
-store.dispatch(trafficLightActions.addTrafficLight());
-store.dispatch(trafficLightActions.addTrafficLight());
-
-store.dispatch(trafficLightActions.changeTrafficLight(2));
-
-store.dispatch(trafficLightActions.changeAllTrafficLights());
-
-store.dispatch(pmtActions.addPMTAgent(3, 'Samuel', 30))
+ReactDOM.render(
+  <App />,
+  document.getElementById('root'),
+);

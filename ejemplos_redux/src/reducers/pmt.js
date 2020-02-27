@@ -44,3 +44,9 @@ const pmt = combineReducers({
 
 
 export default pmt;
+
+
+export const getAgent = (state, id) => state.byId[id];
+export const getAgents = state => state.order.map(
+  id => getAgent(state, id),
+).filter(agent => agent != null);

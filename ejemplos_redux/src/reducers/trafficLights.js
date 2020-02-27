@@ -22,3 +22,10 @@ const trafficLights = (state = [], action) => {
 
 
 export default trafficLights;
+
+
+export const getTrafficLight = (
+  state,
+  index,
+) => index < state.length ? state[index] : undefined;
+export const getTrafficLights = state => state;

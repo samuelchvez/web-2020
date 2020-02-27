@@ -22,3 +22,6 @@ const pmtToTrafficLights = (state = {}, action) => {
 
 
 export default pmtToTrafficLights;
+
+
+export const getAssignedTrafficLight = (state, agentId) => state[agentId];

@@ -1,5 +1,11 @@
+.traffic-light-wrapper {
+    display: flex;
+    flex-direction: column;
+    max-width: 120px;
+}
+
 .traffic-light {
     background: black;
     float: left;
-    padding: 2rem;
+    padding: 10px;
 }

@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import './styles.css';
@@ -14,7 +14,7 @@ export const COLORS = [
 ];
 
 const TrafficLight = ({ turnedOnLight, onClick }) => (
-  <Fragment>
+  <div className="traffic-light-wrapper">
     <div className="traffic-light">
       {
         COLORS.map(
@@ -31,7 +31,7 @@ const TrafficLight = ({ turnedOnLight, onClick }) => (
     <button onClick={onClick}>
       {'Cambiar!'}
     </button>
-  </Fragment>
+  </div>
 );
 
 

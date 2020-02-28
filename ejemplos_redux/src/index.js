@@ -4,17 +4,16 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 
 import reducer from './reducers';
-import * as trafficLightsActions from './actions/trafficLights';
-import TrafficLight from './components/TrafficLight';
+import TrafficLights from './components/TrafficLights';
+import ChangeAllTrafficLights from './components/ChangeAllTrafficLights';
 
 
 const store = createStore(reducer);
 
-store.dispatch(trafficLightsActions.addTrafficLight());
-
 const App = () => (
   <Provider store={store}>
-    <TrafficLight index={0} />
+    <TrafficLights />
+    <ChangeAllTrafficLights />
   </Provider>
 );
 

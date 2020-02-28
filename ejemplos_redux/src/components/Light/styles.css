@@ -1,5 +1,6 @@
 .light {
     border-radius: 50px;
     height: 100px;
+    transition: 0.25s;
     width: 100px;
 }

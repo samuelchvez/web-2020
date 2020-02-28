@@ -12,6 +12,7 @@ const Light = ({
     style={{
       backgroundColor: color,
       opacity: isTurnedOn ? 1.0 : 0.25,
+      transform: `scale(${isTurnedOn ? 1.05 : 1.0})`
     }}
   >
   </div>

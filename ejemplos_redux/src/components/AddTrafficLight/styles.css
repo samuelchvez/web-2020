@@ -1,0 +1,12 @@
+.add-traffic-light-button {
+    background: rebeccapurple;
+    border-radius: 50px;
+    bottom: 50px;
+    color: white;
+    font-size: 40px;
+    height: 70px;
+    position: fixed;
+    right: 20px;
+    width: 70px;
+    z-index: 2;
+}

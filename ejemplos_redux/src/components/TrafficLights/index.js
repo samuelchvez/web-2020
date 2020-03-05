@@ -8,7 +8,7 @@ import * as actions from '../../actions/trafficLights';
 import TrafficLight from '../TrafficLight';
 
 
-const TrafficLights = ({ number, onClick }) => (
+const TrafficLights = ({ number }) => (
   <div className="traffic-lights">
     {
       number === 0 ? (
@@ -26,9 +26,6 @@ const TrafficLights = ({ number, onClick }) => (
         )
       )
     }
-    <button className="add-traffic-light-button" onClick={onClick}>
-      {'+'}
-    </button>
   </div>
 );
 
@@ -36,10 +33,5 @@ const TrafficLights = ({ number, onClick }) => (
 export default connect(
   state => ({
     number: selectors.getTrafficLights(state).length,
-  }),
-  dispatch => ({
-    onClick() {
-      dispatch(actions.addTrafficLight());
-    },
   }),
 )(TrafficLights);

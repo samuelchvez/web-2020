@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import './styles.css';
 import * as selectors from '../../reducers';
 import * as actions from '../../actions/trafficLights';
+import * as selectedActions from '../../actions/selectedTrafficLight';
 import Light from '../Light';
 
 
@@ -13,8 +14,21 @@ export const COLORS = [
   'green',
 ];
 
-const TrafficLight = ({ turnedOnLight, onClick }) => (
-  <div className="traffic-light-wrapper">
+const TrafficLight = ({
+  turnedOnLight,
+  isSelected = false,
+  onChange,
+  onClick,
+}) => (
+  <div
+    className={
+      `
+        traffic-light-wrapper
+        ${isSelected ? 'traffic-light--selected' : ''}
+      `
+    }
+    onClick={onClick}
+  >
     <div className="traffic-light">
       {
         COLORS.map(
@@ -28,7 +42,7 @@ const TrafficLight = ({ turnedOnLight, onClick }) => (
         )
       }
     </div>
-    <button onClick={onClick}>
+    <button onClick={onChange}>
       {'Cambiar!'}
     </button>
   </div>
@@ -38,10 +52,14 @@ const TrafficLight = ({ turnedOnLight, onClick }) => (
 export default connect(
   (state, { index }) => ({
     turnedOnLight: COLORS[selectors.getTrafficLight(state, index)],
+    isSelected: selectors.getSelectedTrafficLight(state) === index,
   }),
   (dispatch, { index }) => ({
-    onClick() {
+    onChange() {
       dispatch(actions.changeTrafficLight(index));
+    },
+    onClick() {
+      dispatch(selectedActions.selectTrafficLight(index));
     },
   }),
 )(TrafficLight);

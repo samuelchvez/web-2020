@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import React, { useState, Fragment } from 'react';
 import { connect } from 'react-redux';
 
@@ -19,7 +20,9 @@ const ExampleForm = ({ onSubmit }) => {
         value={value2}
         onChange={e => changeValue2(e.target.value)}
       />
-      <button type="submit" onClick={() => onSubmit(value1, value2)}>
+      <button type="submit" onClick={
+        () => onSubmit(value1, value2)
+      }>
         {'Enviar'}
       </button>
     </Fragment>
@@ -31,8 +34,14 @@ export default connect(
   undefined,
   dispatch => ({
     onSubmit(value1, value2) {
-      console.log({ type: 'ESTO SE ACABA DE MANDAR MANO', payload: { username: value1, password: value2 } })
-      // dispatch();
+      console.log({
+        type: 'ESTO SE ACABA DE MANDAR MANO',
+        payload: {
+          username: value1,
+          password: value2,
+          dateTime: new Date(),
+        },
+      });
     },
   }),
 )(ExampleForm);

@@ -3,12 +3,14 @@ import { combineReducers } from 'redux';
 import trafficLights, * as trafficLightsSelectors from './trafficLights';
 import pmt, * as pmtSelectors from './pmt';
 import pmtToTrafficLights, * as pmtToTrafficLightsSelectors from './pmtToTrafficLights';
+import selectedTrafficLight, * as selectedTrafficLightSelectors from './selectedTrafficLight';
 
 
 const reducer = combineReducers({
   trafficLights,
   pmt,
   pmtToTrafficLights,
+  selectedTrafficLight,
 });
 
 
@@ -32,4 +34,11 @@ export const getAssignedTrafficLight = (
 ) => pmtToTrafficLightsSelectors.getAssignedTrafficLight(
   state.pmtToTrafficLights,
   agentId,
+);
+
+export const getSelectedTrafficLight = (
+  state =>
+    selectedTrafficLightSelectors.getSelectedTrafficLight(
+      state.selectedTrafficLight,
+    )
 );

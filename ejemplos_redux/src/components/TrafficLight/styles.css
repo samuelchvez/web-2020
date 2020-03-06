@@ -2,10 +2,15 @@
     display: flex;
     flex-direction: column;
     max-width: 120px;
+    transition: 0.25s;
 }
 
 .traffic-light {
     background: black;
     float: left;
     padding: 10px;
+}
+
+.traffic-light--selected {
+    transform: scale(0.9);
 }

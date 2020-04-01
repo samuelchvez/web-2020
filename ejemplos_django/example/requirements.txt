@@ -5,6 +5,7 @@ decorator==4.4.2
 Django==3.0.4
 django-filter==2.2.0
 djangorestframework==3.11.0
+djangorestframework-jwt==1.11.0
 ipython==7.13.0
 ipython-genutils==0.2.0
 jedi==0.16.0
@@ -14,6 +15,7 @@ pickleshare==0.7.5
 prompt-toolkit==3.0.4
 ptyprocess==0.6.0
 Pygments==2.6.1
+PyJWT==1.7.1
 pytz==2019.3
 six==1.14.0
 sqlparse==0.3.1

@@ -1,8 +1,12 @@
 import { fork, all } from 'redux-saga/effects';
 
+import { watchTrafficLightCreation } from './trafficLights';
+
 
 function* mainSaga() {
-  yield all([]);
+  yield all([
+    fork(watchTrafficLightCreation),
+  ]);
 }
 
 

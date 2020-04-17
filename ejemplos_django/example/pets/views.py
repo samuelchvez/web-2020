@@ -27,7 +27,7 @@ class PetViewSet(viewsets.ModelViewSet):
                 'base': {
                     'create': True,
                     'list': True,
-                    'bulk_happy_birthday': True
+                    'bulk_happy_birthday': lambda user, req: user.is_authenticated,
                 },
                 'instance': {
                     'retrieve': 'pets.view_pet',

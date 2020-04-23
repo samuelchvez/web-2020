@@ -1,5 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 
 import { configureStore } from '../../store';
 import TrafficLights from '../TrafficLights';
@@ -9,14 +10,16 @@ import ExampleForm from '../ExampleForm';
 
 
 
-const store = configureStore();
+const { store, persistor } = configureStore();
 
 const App = () => (
   <Provider store={store}>
-    <TrafficLights />
-    <AddTrafficLight />
-    <ChangeAllTrafficLights />
-    <ExampleForm onSubmit={() => alert('Adios!')} />
+    <PersistGate loading={null} persistor={persistor}>
+      <TrafficLights />
+      <AddTrafficLight />
+      <ChangeAllTrafficLights />
+      <ExampleForm onSubmit={() => alert('Adios!')} />
+    </PersistGate>
   </Provider>
 );
 

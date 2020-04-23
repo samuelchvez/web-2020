@@ -5,7 +5,6 @@ import {
   // race,
   // all,
   delay,
-  // take,
   select,
 } from 'redux-saga/effects';
 
@@ -19,7 +18,6 @@ const API_BASE_URL = 'http://localhost:8000/api/v1';
 
 function* sayHappyBirthday(action) {
   const trafficLights = yield select(selectors.getTrafficLights);
-  console.log(trafficLights);
 
   const response = yield call(
     fetch,
@@ -37,9 +35,6 @@ function* sayHappyBirthday(action) {
   );
 
   const { token } = yield response.json();
-
-
-  
   const hbResponse = yield call(
     fetch,
     `${API_BASE_URL}/pets/happy-bday/`,

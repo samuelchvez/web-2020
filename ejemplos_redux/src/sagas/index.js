@@ -1,11 +1,11 @@
 import { fork, all } from 'redux-saga/effects';
 
-import { watchTrafficLightCreation } from './trafficLights';
+import { watchLoginStarted } from './auth';
 
 
 function* mainSaga() {
   yield all([
-    fork(watchTrafficLightCreation),
+    fork(watchLoginStarted),
   ]);
 }
 

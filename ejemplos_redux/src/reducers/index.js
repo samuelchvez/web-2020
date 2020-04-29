@@ -4,6 +4,7 @@ import trafficLights, * as trafficLightsSelectors from './trafficLights';
 import pmt, * as pmtSelectors from './pmt';
 import pmtToTrafficLights, * as pmtToTrafficLightsSelectors from './pmtToTrafficLights';
 import selectedTrafficLight, * as selectedTrafficLightSelectors from './selectedTrafficLight';
+import auth, * as authSelectors from './auth';
 
 
 const reducer = combineReducers({
@@ -11,6 +12,7 @@ const reducer = combineReducers({
   pmt,
   pmtToTrafficLights,
   selectedTrafficLight,
+  auth,
 });
 
 
@@ -42,3 +44,8 @@ export const getSelectedTrafficLight = (
       state.selectedTrafficLight,
     )
 );
+
+export const getAuthToken = state => authSelectors.getAuthToken(state.auth);
+export const getIsAuthenticating = state => authSelectors.getIsAuthenticating(state.auth);
+export const getAuthenticatingError = state => authSelectors.getAuthenticatingError(state.auth);
+export const isAuthenticated = state => getAuthToken(state) != null;

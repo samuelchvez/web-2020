@@ -6,7 +6,7 @@ import { configureStore } from '../../store';
 import TrafficLights from '../TrafficLights';
 import AddTrafficLight from '../AddTrafficLight';
 import ChangeAllTrafficLights from '../ChangeAllTrafficLights';
-import ExampleForm from '../ExampleForm';
+import LoginForm from '../LoginForm';
 
 
 
@@ -18,7 +18,7 @@ const App = () => (
       <TrafficLights />
       <AddTrafficLight />
       <ChangeAllTrafficLights />
-      <ExampleForm onSubmit={() => alert('Adios!')} />
+      <LoginForm />
     </PersistGate>
   </Provider>
 );

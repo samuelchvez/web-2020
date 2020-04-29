@@ -14,8 +14,9 @@ export const configureStore = () => {
   const sagaMiddleware = createSagaMiddleware();
   const persistedReducer = persistReducer(
     {
-      key: 'root',
+      key: 'rootx',
       storage,
+      whitelist: ['auth'],
     },
     reducer,
   );

@@ -5,6 +5,7 @@ import pmt, * as pmtSelectors from './pmt';
 import pmtToTrafficLights, * as pmtToTrafficLightsSelectors from './pmtToTrafficLights';
 import selectedTrafficLight, * as selectedTrafficLightSelectors from './selectedTrafficLight';
 import auth, * as authSelectors from './auth';
+import petOwners, * as petOwnersSelectors from './petOwners';
 
 
 const reducer = combineReducers({
@@ -13,6 +14,7 @@ const reducer = combineReducers({
   pmtToTrafficLights,
   selectedTrafficLight,
   auth,
+  petOwners,
 });
 
 
@@ -52,3 +54,8 @@ export const isAuthenticated = state => getAuthToken(state) != null;
 export const getAuthUserID = state => authSelectors.getAuthUserID(state.auth);
 export const getAuthExpiration = state => authSelectors.getAuthExpiration(state.auth);
 export const getAuthUsername = state => authSelectors.getAuthUsername(state.auth);
+
+export const getPetOwner = (state, id) => petOwnersSelectors.getPetOwner(state, id);
+export const getPetOwners = state => petOwnersSelectors.getPetOwners(state);
+export const isFetchingPetOwners = state => petOwnersSelectors.isFetchingPetOwners(state);
+export const getFetchingPetOwnersError = state => petOwnersSelectors.getFetchingPetOwnersError(state);

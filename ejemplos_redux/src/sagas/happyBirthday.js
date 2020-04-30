@@ -25,7 +25,10 @@ function* sayHappyBirthday(action) {
       ///////////////////////////////////////////////////////////////////////
       const userID = yield select(selectors.getAuthUserID);
       const expiration = yield select(selectors.getAuthExpiration);
-      console.log("YA LO TENGO !!!", userID, expiration);
+      const now = parseInt(Date.now() / 1000);
+      console.log("Expiration: ", expiration);
+      console.log("Now:", now);
+      console.log("Difference:", expiration - now);
       ///////////////////////////////////////////////////////////////////////
       yield call(
         fetch,

@@ -1,0 +1,12 @@
+.say-happy-birthday-button {
+    background: tomato;
+    border-radius: 50px;
+    top: 50px;
+    color: white;
+    font-size: 40px;
+    height: 70px;
+    position: fixed;
+    right: 110px;
+    width: 70px;
+    z-index: 2;
+}

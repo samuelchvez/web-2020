@@ -11,10 +11,11 @@ const LoginForm = ({
   isLoading,
   error = null,
   isAuthenticated = false,
+  authUsername = '',
 }) => {
   if (isAuthenticated) {
     return (
-      <h1>{'Bienvenido nuevamente!'}</h1>
+      <h1>{`Bienvenido ${authUsername} nuevamente!`}</h1>
     );
   }
 
@@ -68,6 +69,7 @@ export default connect(
     isLoading: selectors.getIsAuthenticating(state),
     error: selectors.getAuthenticatingError(state),
     isAuthenticated: selectors.isAuthenticated(state),
+    authUsername: selectors.getAuthUsername(state),
   }),
   dispatch => ({
     onSubmit(username, password) {

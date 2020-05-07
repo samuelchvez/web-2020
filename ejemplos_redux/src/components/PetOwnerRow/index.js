@@ -29,7 +29,7 @@ export default connect(
   }),
   (dispatch, { id }) => ({
     onDelete() {
-      dispatch(actions.removePetOwner(id));
+      dispatch(actions.startRemovingPetOwner(id));
     }
   }),
 )(PetOwnerRow);

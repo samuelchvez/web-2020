@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import './styles.css';
+// import './styles.css';
 import * as selectors from '../../reducers';
 import * as actions from '../../actions/petOwners';
 import PetOwnerRow from '../PetOwnerRow';
@@ -23,11 +23,13 @@ const PetOwnerList = ({ petOwners, isLoading, onLoad }) => {
       }
       {
         petOwners.length > 0 && !isLoading && (
-          <Fragment>
-            {
-              petOwners.map(({ id }) => <PetOwnerRow key={id} id={id} />)
-            }
-          </Fragment>
+          <table>
+            <tbody>
+              {
+                petOwners.map(({ id }) => <PetOwnerRow key={id} id={id} />)
+              }
+            </tbody>
+          </table>
         )
       }
     </Fragment>

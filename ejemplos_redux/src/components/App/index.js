@@ -9,6 +9,8 @@ import LogoutButton from '../LogoutButton';
 import SayHBButton from '../SayHBButton';
 import ChangeAllTrafficLights from '../ChangeAllTrafficLights';
 import LoginForm from '../LoginForm';
+import PetOwnerList from '../PetOwnerList';
+import AddPetOwnerForm from '../AddPetOwnerForm';
 
 
 
@@ -23,6 +25,8 @@ const App = () => (
       <AddTrafficLight />
       <ChangeAllTrafficLights />
       <LoginForm />
+      <PetOwnerList />
+      <AddPetOwnerForm />
     </PersistGate>
   </Provider>
 );

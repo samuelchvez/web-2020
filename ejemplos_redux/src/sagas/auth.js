@@ -48,3 +48,44 @@ export function* watchLoginStarted() {
     login,
   );
 }
+
+function* refreshToken(action) {
+  const expiration = yield select(selectors.getAuthExpiration);
+  const now =  parseInt(new Date().getTime() / 1000);
+
+  if (expiration - now < 3600) {
+    try {
+      const token = yield select(selectors.getAuthToken);
+      const response = yield call(
+        fetch,
+        `${API_BASE_URL}/token-refresh/`,
+        {
+          method: 'POST',
+          body: JSON.stringify({ token }),
+          headers:{
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+
+      if (response.status === 200) {
+        const jResponse = yield response.json();
+        yield put(actions.completeTokenRefresh(jResponse.token));
+      } else {
+        // TODO: poner un redirect al home (login)
+        const { non_field_errors } = yield response.json();
+        yield put(actions.failTokenRefresh(non_field_errors[0]));
+      }
+    } catch (error) {
+      // TODO: poner un redirect al home (login)
+      yield put(actions.failTokenRefresh('Falló horrible la conexión mano'));
+    }
+  }
+}
+
+export function* watchRefreshTokenStarted() {
+  yield takeEvery(
+    types.TOKEN_REFRESH_STARTED,
+    refreshToken,
+  );
+}

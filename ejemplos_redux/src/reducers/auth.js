@@ -12,6 +12,9 @@ const token = (state = null, action) => {
     case types.AUTHENTICATION_COMPLETED: {
       return action.payload.token;
     }
+    case types.TOKEN_REFRESH_COMPLETED: {
+      return action.payload.newToken;
+    }
     case types.AUTHENTICATION_FAILED: {
       return null;
     }
@@ -30,6 +33,10 @@ const decoded = (state = null, action) => {
     }
     case types.AUTHENTICATION_COMPLETED: {
       return jwtDecode(action.payload.token);
+    }
+    case types.TOKEN_REFRESH_COMPLETED: {
+      console.log("SI LLEGA?", jwtDecode(action.payload.newToken))
+      return jwtDecode(action.payload.newToken);
     }
     case types.AUTHENTICATION_FAILED: {
       return null;
@@ -74,11 +81,45 @@ const error = (state = null, action) => {
   return state;
 };
 
+const isRefreshing = (state = false, action) => {
+  switch(action.type) {
+    case types.TOKEN_REFRESH_STARTED: {
+      return true;
+    }
+    case types.TOKEN_REFRESH_COMPLETED: {
+      return false;
+    }
+    case types.TOKEN_REFRESH_FAILED: {
+      return false;
+    }
+  }
+
+  return state;
+};
+
+const refreshingError = (state = null, action) => {
+  switch(action.type) {
+    case types.TOKEN_REFRESH_STARTED: {
+      return null;
+    }
+    case types.TOKEN_REFRESH_COMPLETED: {
+      return null;
+    }
+    case types.TOKEN_REFRESH_FAILED: {
+      return action.payload.error;
+    }
+  }
+
+  return state;
+};
+
 const auth = combineReducers({
   token,
   decoded,
   isAuthenticating,
+  isRefreshing,
   error,
+  refreshingError,
 });
 
 
@@ -91,3 +132,5 @@ export const getAuthenticatingError = state => state.error;
 export const getAuthUserID = state => state.decoded ? state.decoded.user_id : null;
 export const getAuthExpiration = state => state.decoded ? state.decoded.exp : null;
 export const getAuthUsername = state => state.decoded ? state.decoded.username : null;
+export const getIsRefreshingToken = state => state.isRefreshing;
+export const getRefreshingError = state => state.refreshingError;

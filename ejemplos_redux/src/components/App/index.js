@@ -11,7 +11,7 @@ import ChangeAllTrafficLights from '../ChangeAllTrafficLights';
 import LoginForm from '../LoginForm';
 import PetOwnerList from '../PetOwnerList';
 import AddPetOwnerForm from '../AddPetOwnerForm';
-
+import TokenRefresh from '../TokenRefresh';
 
 
 const { store, persistor } = configureStore();
@@ -27,6 +27,7 @@ const App = () => (
       <LoginForm />
       <PetOwnerList />
       <AddPetOwnerForm />
+      <TokenRefresh reviewTime={3600000} />
     </PersistGate>
   </Provider>
 );

@@ -9,13 +9,11 @@ import {
 } from 'redux-saga/effects';
 import { normalize } from 'normalizr';
 
+import { API_BASE_URL } from '../settings';
 import * as selectors from '../reducers';
 import * as actions from '../actions/petOwners';
 import * as types from '../types/petOwners';
 import * as schemas from '../schemas/petOwners';
-
-
-const API_BASE_URL = 'http://localhost:8000/api/v1';
 
 
 function* fetchPetOwners(action) {

@@ -8,12 +8,10 @@ import {
   select,
 } from 'redux-saga/effects';
 
+import { API_BASE_URL } from '../settings';
 import * as selectors from '../reducers';
 import * as actions from '../actions/auth';
 import * as types from '../types/auth';
-
-
-const API_BASE_URL = 'http://localhost:8000/api/v1';
 
 
 function* login(action) {
